@@ -1,0 +1,31 @@
+import { ADD_MOVIE, DELETE_MOVIE} from '../actions/movieActions.js';
+import movies from './../data.js';
+
+export const initialState = {
+    movies: movies,
+    appTitle: "IMDB Movie Database",
+}
+
+export const reducer = (state = initialState, action) => {
+    switch(action.type) {
+        case DELETE_MOVIE:
+            return {
+                ...state,
+                movies: state.movies.filter(item=>(action.payload !== item.id))
+            }
+            case ADD_MOVIE:
+               const newMovie ={
+                ...action.payload,
+                id: Date.now()
+               }
+            return{
+                    ...state,
+                    moives: [...state.movies, newMovie]
+                }
+          
+        default:
+            return state;
+    }
+}
+
+export default reducer;
